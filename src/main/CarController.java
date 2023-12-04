@@ -19,13 +19,6 @@ import java.util.ArrayList;
 public class CarController {
     // member fields:
 
-    // Import settings for the window the car can move on.
-    private WindowSettings windowSettings = new WindowSettings();
-    static private int carWidth = 100;
-    static private int carHeight = 60;
-    static private int controllerHeight = 200;
-    static private int distanceConstantY = 100 + carHeight;
-
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int DELAY = 25;
     // The timer is started with an listener (see below) that executes the statements
@@ -137,9 +130,9 @@ public class CarController {
 
     private boolean isDrivingIntoSurface(Cars car){
         
-        boolean _isTouchingRightSide = car.getX() > windowSettings.getWindowWidth() - carWidth;
+        boolean _isTouchingRightSide = car.getX() > Settings.getWindowWidth() - Settings.getCarWidth();
         boolean _isTouchingLeftSide = car.getX() < 0;
-        boolean _isTouchingBottom = car.getY() > windowSettings.getWindowHeight() - controllerHeight - carHeight;
+        boolean _isTouchingBottom = car.getY() > Settings.getWindowHeight() - Settings.getControllerHeight() - Settings.getCarHeight();
         boolean _isTouchingTop = car.getY() < 0;
 
         boolean _driveIntoLeftSide = _isTouchingLeftSide && car.getFacingDirection() == Direction.WEST;
@@ -161,16 +154,16 @@ public class CarController {
         int _newXPos = xPos;
         int _newYPos = yPos;
         
-        if (xPos + carWidth > windowSettings.getWindowWidth()) {
-            _newXPos = windowSettings.getWindowWidth() - carWidth -1;
+        if (xPos + Settings.getCarWidth() > Settings.getWindowWidth()) {
+            _newXPos = Settings.getWindowWidth() - Settings.getCarWidth() -1;
         }
 
         if (xPos < 0) {
             _newXPos = 0;
         }
 
-        if (yPos + carHeight > windowSettings.getWindowHeight()) {
-            _newYPos = windowSettings.getWindowHeight() - carHeight;
+        if (yPos + Settings.getCarHeight() > Settings.getWindowHeight()) {
+            _newYPos = Settings.getWindowHeight() - Settings.getCarHeight();
         }
 
         if (yPos < 0) {
@@ -186,9 +179,5 @@ public class CarController {
 
     public Timer getTimer(){
         return timer;
-    }
-
-    public static int getDistanceConstantY(){
-        return distanceConstantY;
     }
 }
