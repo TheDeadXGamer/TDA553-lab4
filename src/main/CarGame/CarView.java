@@ -1,10 +1,9 @@
-package main;
+package main.CarGame;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
+import main.Settings;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -20,21 +19,24 @@ public class CarView extends JFrame{
     private int windowHeight = Settings.getWindowHeight();
     private int windowWidth = Settings.getWindowWidth();
 
+    private ArrayList<Color> colors = new ArrayList<>(); 
+
     DrawPanel drawPanel = new DrawPanel(windowWidth, windowHeight-240);
-
-    private JPanel gasPanel = new JPanel();
     
-    private JLabel gasLabel = new JLabel("Amount of gas");
-
-   
+    
 
     // Constructor
-    public CarView(String framename, CarController cc){
-        initComponents(framename);
+    public CarView(String framename, CarButtonListener cb){
+        initComponents(framename, cb.getComponents());
     }
     
     // Sets everything in place and fits everything
-    private void initComponents(String title, ArrayList<JComponent> panels) {
+    private void initComponents(String title, ArrayList<JComponent> components) {
+
+        colors.add(Color.blue);
+        colors.add(Color.green);
+        colors.add(Color.red);
+        colors.add(Color.black);
         
         this.setTitle(title);
         this.setPreferredSize(new Dimension(windowWidth,windowHeight));
@@ -42,36 +44,27 @@ public class CarView extends JFrame{
 
         this.add(drawPanel);
 
-        for(JComponent panel: panels){
-            if(panel instanceof )
+        for(int k = 0; k < components.size(); k++){
+            JComponent panel = components.get(k);
+            if(panel.getLayout() == new GridLayout(2,4)){
+                panel.setPreferredSize(new Dimension((windowWidth/2)+4, 200));
+                this.add(panel);
+                panel.setBackground(Color.CYAN);
+                continue;
+            }
+            if(panel instanceof JButton){
+                panel.setBackground(colors.get(k-1));
+                panel.setForeground(colors.get(k));
+                panel.setPreferredSize(new Dimension(windowWidth/5-15,200));
+                this.add(panel);
+            }
+            else{
+                this.add(panel);
+            }
         }
-
-        gasPanel.setLayout(new BorderLayout());
-        gasPanel.add(gasLabel, BorderLayout.PAGE_START);
-        gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
-        this.add(gasPanel);
-
-
-        
-        controlPanel.setPreferredSize(new Dimension((windowWidth/2)+4, 200));
-        this.add(controlPanel);
-        controlPanel.setBackground(Color.CYAN);
-
-        startButton.setBackground(Color.blue);
-        startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(windowWidth/5-15,200));
-        this.add(startButton);
-
-        stopButton.setBackground(Color.red);
-        stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(windowWidth/5-15,200));
-        this.add(stopButton);
-
        
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
-        new Dimension(5,7);
         // Get the computer screen resolution
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         // Center the frame

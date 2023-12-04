@@ -1,10 +1,10 @@
-package main.CarModel;
+package main;
 
-class CarPosition {
+public class Position {
     private float x;
     private float y;
 
-    CarPosition(float x, float y) {
+    public Position(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -17,15 +17,15 @@ class CarPosition {
         return y;
     }
 
-    void setPosition(float x, float y) {
+    public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public static float calcDistance(Cars car1, Cars car2) {
-        float _distanceX = (car1.getPosition().x - car2.getPosition().x);
+    public static float calcDistance(Position pos1, Position pos2) {
+        float _distanceX = (pos1.getX() - pos2.getX());
         
-        float _distanceY = car1.getPosition().y - car2.getPosition().y;
+        float _distanceY = pos1.getY() - pos2.getY();
         
         float _diagonalSquared = (_distanceX*_distanceX) + (_distanceY*_distanceY);
 

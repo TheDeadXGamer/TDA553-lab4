@@ -1,4 +1,7 @@
 package main.CarModel;
+
+import main.Position;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class TransportTruck extends Cars{
     private boolean canBeLoaded(Cars car) {
         boolean _canBeLoaded = true;
 
-        boolean _isNotNear = CarPosition.calcDistance(this,car) > 1f;
+        boolean _isNotNear = Position.calcDistance(this.getPosition(),car.getPosition()) > 1f;
         boolean _isNotMoving = this.getCurrentSpeed() > 0;
         boolean _carTooBig = car.getCarSize() > 100;
 
@@ -63,7 +66,7 @@ public class TransportTruck extends Cars{
             Cars car = carLoad.get((carLoad.size() - 1));
             carLoad.remove((carLoad.size() - 1));
 
-            car.setPosition(this.getX(), this.getY() - 1);
+            car.setPosition(car.getPosition().getX(), this.getPosition().getY() - 1);
         }
     }
     
@@ -74,7 +77,7 @@ public class TransportTruck extends Cars{
                     Cars car = carLoad.get((carLoad.size() - 1));
                     carLoad.remove((carLoad.size() - 1));
 
-                    car.setPosition(this.getX(), this.getY() - 1);
+                    car.setPosition(this.getPosition().getX(), this.getPosition().getY() - 1);
                 }
             }
         }

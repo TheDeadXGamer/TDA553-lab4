@@ -1,26 +1,19 @@
 package main.CarModel;
+
+import main.Position;
+import main.CarModel.Movable2D.Direction;
+
 import java.awt.*;
 
-import main.Movable;
-
-public class Cars implements Movable{
-
-    public enum Direction {
-    NORTH,
-    EAST,
-    WEST,
-    SOUTH
-    }
-
+public class Cars{
+    
     private int carSize; //Size of car
     private int nrDoors; // Number of doors on the car
     private int enginePower; // Engine power of the car
-    private float currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     private String modelName; // The car model name
-    private Direction facingDirection;
-    private CarPosition position;
     private boolean carIsOn;
+    private Movable2D moveHelper;
     
     public Cars(int nrDoors,Color color,int enginePower,String modelName, int carSize, float x, float y){
         this.nrDoors = nrDoors;
@@ -28,8 +21,7 @@ public class Cars implements Movable{
         this.enginePower = enginePower;
         this.modelName = modelName;
         this.carSize = carSize;
-        facingDirection = Direction.EAST;
-        position = new CarPosition(x,y);
+        moveHelper = new Movable2D(x, y);
         stopEngine();
     }
     
@@ -39,10 +31,6 @@ public class Cars implements Movable{
 
     public int getEnginePower(){
         return enginePower;
-    }
-
-    public float getCurrentSpeed(){
-        return currentSpeed;
     }
 
     public Color getColor(){
@@ -57,6 +45,18 @@ public class Cars implements Movable{
         return carSize;
     }
 
+    public Position getPosition(){
+        return moveHelper.getPosition();
+    }
+
+    public Direction getFacingDirection(){
+        return moveHelper.getFacingDirection();
+    }
+
+    public void setPosition(float x, float y){
+        moveHelper.setPosition(x,y);
+    }
+
     public void setColor(Color clr){
 	    color = clr;
     }
@@ -66,7 +66,7 @@ public class Cars implements Movable{
     }
 
     public void stopEngine(){
-	    currentSpeed = 0f;
+	    moveHelper.setCurrentSpeed(0);;
         carIsOn = false;
     }
     
@@ -74,16 +74,14 @@ public class Cars implements Movable{
         return enginePower * 0.01f;
     }
 
-    public Direction getFacingDirection() {
-        return facingDirection;
-    }
-
     private void incrementSpeed(float amount){
-	    currentSpeed = Math.min(getCurrentSpeed() + getSpeedFactor() * amount,enginePower);
+	    float incr = Math.min(moveHelper.getCurrentSpeed() + getSpeedFactor() * amount,enginePower);
+        moveHelper.setCurrentSpeed(incr);
     }
 
     private void decrementSpeed(float amount){
-        currentSpeed = Math.max(getCurrentSpeed() - getSpeedFactor() * amount,0);
+        float decr = Math.max(moveHelper.getCurrentSpeed() - getSpeedFactor() * amount,0);
+        moveHelper.setCurrentSpeed(decr);
     }
 
     public void gas(float amount){
@@ -98,73 +96,27 @@ public class Cars implements Movable{
         }
     }
 
-    @Override
     public void turnLeft(){
-        switch (facingDirection) {
-            case NORTH:
-                facingDirection = Direction.WEST;
-                break;
-            case EAST:
-                facingDirection = Direction.NORTH;
-                break;
-            case SOUTH:
-                facingDirection = Direction.EAST;
-                break;
-            case WEST:
-                facingDirection = Direction.SOUTH;
-                break;
-        }
+        moveHelper.turnLeft();
     }
 
-    @Override
     public void turnRight(){
-        switch (facingDirection) {
-            case NORTH:
-                facingDirection = Direction.EAST;
-                break;
-            case EAST:
-                facingDirection = Direction.SOUTH;
-                break;
-            case SOUTH:
-                facingDirection = Direction.WEST;
-                break;
-            case WEST:
-                facingDirection = Direction.NORTH;
-                break;
-        }
+        moveHelper.turnRight();
     }
-    
-    @Override
+
     public void move(){
-        switch (facingDirection) {
-            case NORTH:
-                position.setPosition(getX(), getY() + currentSpeed);
-                break;
-            case WEST:
-                position.setPosition(getX() - currentSpeed, getY());
-                break;
-            case EAST:
-                position.setPosition(getX() + currentSpeed, getY());
-                break;
-            case SOUTH:
-                position.setPosition(getX(), getY() - currentSpeed);
-                break;
-        }
+        moveHelper.move();
     }
 
-    public CarPosition getPosition(){
-        return position;
-    }
-
-    void setPosition(float x, float y) {
-        position.setPosition(x, y);
-    }
-
-    public float getY(){
-        return position.getY();
+    public float getCurrentSpeed() {
+        return moveHelper.getCurrentSpeed();
     }
 
     public float getX() {
-        return position.getX();
+        return moveHelper.getX();
+    }
+
+    public float getY() {
+        return moveHelper.getY();
     }
 }

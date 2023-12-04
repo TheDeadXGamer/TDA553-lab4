@@ -1,4 +1,4 @@
-package main;
+package main.CarGame;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import main.Settings;
+
 // This panel represents the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
 
-    private final int arraySize = 3;
+    private int arraySize = 3;
 
     // Just a single image
     private Image volvoImage;
@@ -19,26 +21,26 @@ public class DrawPanel extends JPanel{
     private Image scaniaImage;
     // To keep track of a singel cars position
     private Point volvoPosition = new Point(0,0);
-    private Point saabPosition = new Point(0,CarController.getDistanceConstantY());
-    private Point scaniaPosition = new Point(0,2*CarController.getDistanceConstantY());
+    private Point saabPosition = new Point(0,Settings.getDistanceConstantY());
+    private Point scaniaPosition = new Point(0,2*Settings.getDistanceConstantY());
     
     private ArrayList<Image> images = new ArrayList<>(arraySize);
     private ArrayList<Point> points = new ArrayList<>(arraySize);
     
-    public void addAllPositions(Point...points){
+    private void addAllPositions(Point...points){
         for(Point point : points){
             this.points.add(point);
         }
     }
 
-    public void addAllImages(Image...images){
+    private void addAllImages(Image...images){
         for(Image image : images){
             this.images.add(image);
         }
     }
-    
-    void moveCar(int index, int x, int y){
-        points.set(index,new Point(x,y));
+
+    void setPoint(int index, int x, int y){
+        points.set(index,new Point(x, y));
     }
 
     // Initializes the panel and reads the images
