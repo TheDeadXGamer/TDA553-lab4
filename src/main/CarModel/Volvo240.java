@@ -1,7 +1,7 @@
 package main.CarModel;
 import java.awt.*;
 
-public class Volvo240 extends Cars{
+public class Volvo240 extends Car{
 
     private final float TRIMFACTOR = 1.25f;
     

@@ -2,10 +2,10 @@ package main.CarGame;
 import javax.swing.*;
 
 import main.Settings;
-import main.CarModel.Cars;
+import main.CarModel.Car;
 import main.CarModel.Saab95;
 import main.CarModel.Scania;
-import main.CarModel.Movable2D.Direction;
+import main.CarModel.Vehicle.Direction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +29,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
 
     // A list of cars, modify if needed
-    private ArrayList<Cars> cars = new ArrayList<>();
+    private ArrayList<Car> cars = new ArrayList<>();
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
@@ -46,9 +46,8 @@ public class CarController {
             this.frame = frame;
         }
 
-
         public void actionPerformed(ActionEvent e) {
-            for (Cars car : cars) {
+            for (Car car : cars) {
                 car.move();
                 int x = (int) Math.round(car.getPosition().getX());
                 int y = (int) Math.round(car.getPosition().getY());
@@ -72,7 +71,7 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         float gas = ((float) amount) / 100;
-        for (Cars car : cars) {
+        for (Car car : cars) {
             car.gas(gas);
         }
     }
@@ -80,25 +79,25 @@ public class CarController {
      // Calls the gas method for each car once
     void brake(int amount) {
         float gas = ((float) amount) / 100;
-        for (Cars car : cars) {
+        for (Car car : cars) {
             car.brake(gas);
         }
     }
 
     void startCars(){
-        for (Cars car : cars){
+        for (Car car : cars){
             car.startEngine();
         }
     }
 
     void stopCars(){
-        for (Cars car : cars){
+        for (Car car : cars){
             car.stopEngine();
         }
     }
 
     void turboOn(){
-        for (Cars car : cars){
+        for (Car car : cars){
             if (car instanceof Saab95){
                 ((Saab95)car).setTurboOn();
             }
@@ -106,7 +105,7 @@ public class CarController {
     }
     
     void turboOff(){
-        for (Cars car : cars){
+        for (Car car : cars){
             if (car instanceof Saab95){
                 ((Saab95)car).setTurboOff();
             }
@@ -114,7 +113,7 @@ public class CarController {
     }
 
     void lowerBed(){
-        for (Cars car : cars){
+        for (Car car : cars){
             if (car instanceof Scania){
                 ((Scania)car).LowerTrailer(70f);
             }
@@ -122,7 +121,7 @@ public class CarController {
     }
 
     void raiseBed(){
-        for (Cars car : cars){
+        for (Car car : cars){
             if (car instanceof Scania){
                 ((Scania)car).RaiseTrailer(70f);
             }
@@ -133,7 +132,7 @@ public class CarController {
         frame.drawPanel.setPoint(index,x,y);
     }
 
-    private boolean isDrivingIntoSurface(Cars car){
+    private boolean isDrivingIntoSurface(Car car){
 
         Direction direction = car.getFacingDirection();
         
@@ -156,7 +155,7 @@ public class CarController {
     /**
      * Keeps the Cars car from going out of bounds
      */
-    private void inBounds(Cars car, int xPos, int yPos, CarView frame) {
+    private void inBounds(Car car, int xPos, int yPos, CarView frame) {
         
         int _newXPos = xPos;
         int _newYPos = yPos;
@@ -180,13 +179,11 @@ public class CarController {
         moveCar(cars.indexOf(car),_newXPos, _newYPos, frame);
     }
 
-    public void addCarToArr(Cars car){
+    public void addCarToArr(Car car){
         cars.add(car);
     }
 
     public Timer getTimer(){
         return timer;
     }
-
-    
 }

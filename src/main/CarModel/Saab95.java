@@ -1,7 +1,7 @@
 package main.CarModel;
 import java.awt.*;
 
-public class Saab95 extends Cars {
+public class Saab95 extends Car {
     private float turbo; // Set to 1 when off
     
     public Saab95(float x,float y){

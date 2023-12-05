@@ -1,13 +1,12 @@
 package main.CarModel;
 
 import main.Movable;
+import java.awt.*;
 import main.Position;
 
+abstract public class Vehicle implements Movable{
 
-/**
- * Movable2D
- */
-public class Movable2D implements Movable{
+    private Color color; // Color of the car
 
     public enum Direction {
     NORTH,
@@ -15,14 +14,15 @@ public class Movable2D implements Movable{
     WEST,
     SOUTH
     }
-
+    
     private Position position;
     private Direction facingDirection;
     private float currentSpeed;    
 
-    Movable2D(float x ,float y) {
+    Vehicle(float x ,float y, Color color) {
         position = new Position(x, y);
         facingDirection = Direction.EAST;
+        this.color = color;
     }
     
     public float getCurrentSpeed(){
@@ -54,6 +54,8 @@ public class Movable2D implements Movable{
         }
     }
 
+
+    
     public void turnRight(){
         switch (facingDirection) {
             case NORTH:
@@ -100,7 +102,19 @@ public class Movable2D implements Movable{
         return position.getY();
     }
 
+    public Color getColor(){
+        return color;
+    }
+
+    public void setColor(Color clr){
+	    color = clr;
+    }
+
     void setPosition(float x, float y) {
         position.setPosition(x, y);
     }
+
+    abstract protected void incrementSpeed(float amount);
+
+    abstract protected void decrementSpeed(float amount);
 }

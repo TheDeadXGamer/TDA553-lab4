@@ -5,10 +5,10 @@ import main.Position;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TransportTruck extends Cars{
+public class TransportTruck extends Car{
     private boolean bedDown;
     private int maxNrCars;
-    private ArrayList<Cars> carLoad;
+    private ArrayList<Car> carLoad;
 
     public TransportTruck(int maxNrCars, float x, float y) {
         super(2, Color.magenta, 100, "TransportTruck", 1000, x, y);
@@ -21,7 +21,7 @@ public class TransportTruck extends Cars{
         return maxNrCars;
     }
 
-    public ArrayList<Cars> getLoad(){
+    public ArrayList<Car> getLoad(){
         return carLoad;
     }
 
@@ -39,7 +39,7 @@ public class TransportTruck extends Cars{
         }
     }
 
-    private boolean canBeLoaded(Cars car) {
+    private boolean canBeLoaded(Car car) {
         boolean _canBeLoaded = true;
 
         boolean _isNotNear = Position.calcDistance(this.getPosition(),car.getPosition()) > 1f;
@@ -52,7 +52,7 @@ public class TransportTruck extends Cars{
         return _canBeLoaded;
     }
     
-    public void loadCar(Cars car) {
+    public void loadCar(Car car) {
         
         boolean _canBeLoaded = canBeLoaded(car);
 
@@ -63,7 +63,7 @@ public class TransportTruck extends Cars{
     
     public void unloadCar() {
         if(carLoad.size() > 0 || this.getCurrentSpeed() == 0) {
-            Cars car = carLoad.get((carLoad.size() - 1));
+            Car car = carLoad.get((carLoad.size() - 1));
             carLoad.remove((carLoad.size() - 1));
 
             car.setPosition(car.getPosition().getX(), this.getPosition().getY() - 1);
@@ -74,7 +74,7 @@ public class TransportTruck extends Cars{
         if(amount <= carLoad.size()) {
             for (int i = 0; i < amount; i++) {
                 if(carLoad.size() > 0) {
-                    Cars car = carLoad.get((carLoad.size() - 1));
+                    Car car = carLoad.get((carLoad.size() - 1));
                     carLoad.remove((carLoad.size() - 1));
 
                     car.setPosition(this.getPosition().getX(), this.getPosition().getY() - 1);
@@ -86,7 +86,7 @@ public class TransportTruck extends Cars{
     @Override
     public void move() {
         super.move();
-        for (Cars car : carLoad) {
+        for (Car car : carLoad) {
             car.setPosition(this.getPosition().getX(), this.getPosition().getY());
         }
     }

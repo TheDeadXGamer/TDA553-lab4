@@ -1,7 +1,7 @@
 package main.CarModel;
 import java.awt.*;
 
-public class Scania extends Cars{
+public class Scania extends Car{
 
     private float trailerAngle;
     public static float maxAngle = 70f;
@@ -11,7 +11,6 @@ public class Scania extends Cars{
         super(2, Color.white, 100, "Scania",500,x,y); 
 	    trailerAngle = 0;
     }
-    
     
     public void RaiseTrailer(float x) {
         if(getCurrentSpeed() == 0) {

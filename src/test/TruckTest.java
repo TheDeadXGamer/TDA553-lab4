@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 import org.junit.*;
 
-import main.CarModel.Cars;
+import main.CarModel.Car;
 import main.CarModel.Saab95;
 import main.CarModel.Scania;
 import main.CarModel.TransportTruck;
@@ -78,7 +78,7 @@ public class TruckTest {
         myTruck.loadCar(saab2);
         myTruck.loadCar(volvo2);
 
-        ArrayList<Cars> expectedList = new ArrayList<>(Arrays.asList(saab1, volvo1, saab2, volvo2));
+        ArrayList<Car> expectedList = new ArrayList<>(Arrays.asList(saab1, volvo1, saab2, volvo2));
 
         Assert.assertEquals(expectedList, myTruck.getLoad());
 

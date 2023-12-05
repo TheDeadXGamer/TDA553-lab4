@@ -1,9 +1,9 @@
 package main;
 import java.util.ArrayList;
 
-import main.CarModel.Cars;
+import main.CarModel.Car;
 
-public class Workshop<T extends Cars> {
+public class Workshop<T extends Car> {
     
     private int maxNrOfCars;
     private ArrayList<T> carsInWorkshop;
