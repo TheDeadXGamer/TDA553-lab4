@@ -8,6 +8,7 @@ public class Settings {
     static private int carHeight = 60;
     static private int controllerHeight = 200;
     static private int distanceConstantY = carWidth + 100;
+    static private int maxNrCars = 10;
 
     static public int getWindowHeight(){
         return windowHeight;
@@ -31,5 +32,9 @@ public class Settings {
 
     static public int getDistanceConstantY(){
         return distanceConstantY;
+    }
+
+    static public int getMaxNrCars() {
+        return maxNrCars;
     }
 }

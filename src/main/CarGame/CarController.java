@@ -2,9 +2,7 @@ package main.CarGame;
 import javax.swing.*;
 
 import main.Settings;
-import main.CarModel.Car;
-import main.CarModel.Saab95;
-import main.CarModel.Scania;
+import main.CarModel.*;
 import main.CarModel.Vehicle.Direction;
 
 import java.awt.event.ActionEvent;
@@ -25,6 +23,7 @@ public class CarController {
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
     private Timer timer;
+    private CarView frame;
     
     // The frame that represents this instance View of the MVC pattern
 
@@ -35,17 +34,16 @@ public class CarController {
     * view to update its images. Change this method to your needs.
     * */
 
-    public void passFrame(CarView frame){
-        timer = new Timer(DELAY, new TimerListener(frame));
+    public CarController(){
+        timer = new Timer(DELAY, new TimerListener());
     }
 
-    private class TimerListener implements ActionListener {
-        private CarView frame;
+    public void passFrame(CarView frame){
+        this.frame = frame;
+    }
 
-        TimerListener(CarView frame){
-            this.frame = frame;
-        }
-
+    private class TimerListener implements ActionListener{ 
+    
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
                 car.move();
@@ -58,16 +56,17 @@ public class CarController {
                     car.turnLeft();
                     car.startEngine();
                 }
-
+                
                 inBounds(car, x, y,frame);
                 moveCar(cars.indexOf(car),x,y,frame);
                 
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+                //frame.drawPanel.repaint();
             }
+            frame.drawPanel.repaint();
         }
     }
-
+    
     // Calls the gas method for each car once
     void gas(int amount) {
         float gas = ((float) amount) / 100;
@@ -128,6 +127,17 @@ public class CarController {
         }
     }
 
+    void addCar(Car c){
+        addCarToArr(c);
+    }
+
+    void removeCar(){
+        if(cars.size() > 0){
+            cars.remove(cars.size()-1);
+            frame.removeCarFromArrays();
+        }
+    }
+
     private void moveCar(int index, int x, int y, CarView frame){
         frame.drawPanel.setPoint(index,x,y);
     }
@@ -180,9 +190,12 @@ public class CarController {
     }
 
     public void addCarToArr(Car car){
-        cars.add(car);
+        if(cars.size() < Settings.getMaxNrCars()) {
+            cars.add(car);
+            frame.initiateCarToArr(car);
+        }
     }
-
+    
     public Timer getTimer(){
         return timer;
     }

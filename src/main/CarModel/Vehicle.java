@@ -17,7 +17,7 @@ abstract public class Vehicle implements Movable{
     
     private Position position;
     private Direction facingDirection;
-    private float currentSpeed;    
+    private float currentSpeed;
 
     Vehicle(float x ,float y, Color color) {
         position = new Position(x, y);

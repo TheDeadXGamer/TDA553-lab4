@@ -3,8 +3,14 @@ package main.CarGame;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import java.util.Random;
+
 
 import main.Settings;
+import main.CarModel.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +21,10 @@ import java.util.ArrayList;
 public class CarButtonListener {
     private JPanel controlPanel = new JPanel();
     private JPanel gasPanel = new JPanel();
+    private CarFactory CF = new CarFactory();
 
+    private JButton removeCarButton = new JButton("Remove Car");
+    private JButton addCarButton = new JButton("Add Car");
     private JButton gasButton = new JButton("Gas");
     private JButton brakeButton = new JButton("Brake");
     private JButton turboOnButton = new JButton("Saab Turbo on");
@@ -27,20 +36,28 @@ public class CarButtonListener {
 
     private JLabel gasLabel = new JLabel("Amount of gas");
 
+    private JList<String> dropList;
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
+    private String dropListValue = "Random";
+
     private JSpinner gasSpinner;
     private int gasAmount = 0;
 
     private ArrayList<JComponent> components = new ArrayList<>();
 
     public CarButtonListener(CarController carC){
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(2,6));
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
-        controlPanel.setPreferredSize(new Dimension((Settings.getWindowWidth()/2)+4, 200));
+        controlPanel.add(startButton,6);
+        controlPanel.add(stopButton,7);
+        controlPanel.add(addCarButton,8);
+        controlPanel.add(removeCarButton);
+        controlPanel.setPreferredSize(new Dimension((Settings.getWindowWidth()/2)-200, 200));
 
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value
@@ -53,16 +70,23 @@ public class CarButtonListener {
                 gasAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
+
+        listModel.addElement("Saab95");
+        listModel.addElement("Scania");
+        listModel.addElement("Volvo240");
+        listModel.addElement("Random");
+
+        dropList = new JList<>(listModel);
+
+        dropList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
 
-        System.err.println(startButton);
-
         addToComponents(controlPanel);
-        addToComponents(startButton);
-        addToComponents(stopButton);
         addToComponents(gasPanel);
+        addToComponents(new JScrollPane(dropList));
 
          // This actionListener is for the gas button only
         gasButton.addActionListener(new ActionListener() {
@@ -118,6 +142,45 @@ public class CarButtonListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 carC.lowerBed();
+            }
+        });
+
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Random random = new Random();
+                int x = random.nextInt(Settings.getWindowWidth() - Settings.getCarWidth());
+                int y = random.nextInt(Settings.getWindowHeight() - Settings.getCarHeight() - Settings.getControllerHeight());
+                switch(dropListValue){
+                    case "Random":
+                        carC.addCarToArr(CF.CreateRandomCar(x,y));
+                        break;
+                    case "Volvo240":
+                        carC.addCar(CF.CreateVolvo240(x,y));
+                        break;
+                    case "Saab95":
+                        carC.addCar(CF.CreateSaab95(x,y));
+                        break;
+                    case "Scania":
+                        carC.addCar(CF.CreateScania(x,y));
+                        break;
+                }
+            }
+        });
+
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.removeCar();
+            }
+        });
+
+        dropList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    dropListValue = dropList.getSelectedValue();
+                }
             }
         });
     }
