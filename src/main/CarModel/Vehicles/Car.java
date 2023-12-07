@@ -1,4 +1,4 @@
-package main.CarModel;
+package main.CarModel.Vehicles;
 
 import java.awt.*;
 
@@ -16,7 +16,8 @@ public class Car extends Vehicle{
         this.enginePower = enginePower;
         this.modelName = modelName;
         this.carSize = carSize;
-        stopEngine();
+        this.carIsOn = false;
+        super.setCurrentSpeed(0);
     }
     
     public int getNrDoors(){

@@ -1,4 +1,4 @@
-package main.CarModel;
+package main.CarModel.Vehicles;
 
 import main.Movable;
 import java.awt.*;
@@ -19,7 +19,7 @@ abstract public class Vehicle implements Movable{
     private Direction facingDirection;
     private float currentSpeed;
 
-    Vehicle(float x ,float y, Color color) {
+    public Vehicle(float x ,float y, Color color) {
         position = new Position(x, y);
         facingDirection = Direction.EAST;
         this.color = color;

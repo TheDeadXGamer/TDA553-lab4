@@ -1,7 +1,7 @@
 package main;
 import java.util.ArrayList;
 
-import main.CarModel.Car;
+import main.CarModel.Vehicles.Car;
 
 public class Workshop<T extends Car> {
     

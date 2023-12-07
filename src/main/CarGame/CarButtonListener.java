@@ -56,7 +56,7 @@ public class CarButtonListener {
         controlPanel.add(startButton,6);
         controlPanel.add(stopButton,7);
         controlPanel.add(addCarButton,8);
-        controlPanel.add(removeCarButton);
+        controlPanel.add(removeCarButton,9);
         controlPanel.setPreferredSize(new Dimension((Settings.getWindowWidth()/2)-200, 200));
 
         SpinnerModel spinnerModel =

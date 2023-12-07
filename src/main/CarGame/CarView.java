@@ -2,7 +2,9 @@ package main.CarGame;
 import javax.swing.*;
 
 import main.Settings;
-import main.CarModel.*;
+import main.CarModel.Vehicles.Car;
+import main.CarModel.Vehicles.Saab95;
+import main.CarModel.Vehicles.Volvo240;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class CarView extends JFrame{
             if(component.getLayout() instanceof GridLayout){
                 GridLayout layout = (GridLayout)component.getLayout();
                 if(layout.getRows() == 2 && layout.getColumns() == 6){
-                    component.setPreferredSize(new Dimension((windowWidth/2)+4, 200));
+                    component.setPreferredSize(new Dimension((windowWidth/2)+100, 200));
                     component.setBackground(Color.CYAN);
                     component.setForeground(Color.red);
                     this.add(component);

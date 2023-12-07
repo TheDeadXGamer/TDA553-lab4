@@ -3,11 +3,11 @@ import java.util.Arrays;
 
 import org.junit.*;
 
-import main.CarModel.Car;
-import main.CarModel.Saab95;
-import main.CarModel.Scania;
-import main.CarModel.TransportTruck;
-import main.CarModel.Volvo240;
+import main.CarModel.Vehicles.Car;
+import main.CarModel.Vehicles.Saab95;
+import main.CarModel.Vehicles.Scania;
+import main.CarModel.Vehicles.TransportTruck;
+import main.CarModel.Vehicles.Volvo240;
 
 public class TruckTest {
 

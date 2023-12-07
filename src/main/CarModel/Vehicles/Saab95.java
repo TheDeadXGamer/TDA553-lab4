@@ -1,4 +1,4 @@
-package main.CarModel;
+package main.CarModel.Vehicles;
 import java.awt.*;
 
 public class Saab95 extends Car {

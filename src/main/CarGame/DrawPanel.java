@@ -50,6 +50,8 @@ public class DrawPanel extends JPanel{
             volvoImage = ImageIO.read(new File("src\\pics\\Volvo240.jpg"));
             saabImage = ImageIO.read(new File("src\\pics\\Saab95.jpg"));
             scaniaImage = ImageIO.read(new File("src\\pics\\Scania.jpg"));
+
+            
         }
         catch (IOException ex){
             ex.printStackTrace();

@@ -1,8 +1,8 @@
 import java.awt.Color;
 import org.junit.*;
 
-import main.CarModel.Saab95;
-import main.CarModel.Volvo240;
+import main.CarModel.Vehicles.Saab95;
+import main.CarModel.Vehicles.Volvo240;
 
 public class CarsTest {
 
