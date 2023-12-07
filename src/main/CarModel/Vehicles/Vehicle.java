@@ -6,8 +6,6 @@ import main.Position;
 
 abstract public class Vehicle implements Movable{
 
-    private Color color; // Color of the car
-
     public enum Direction {
     NORTH,
     EAST,
@@ -18,11 +16,15 @@ abstract public class Vehicle implements Movable{
     private Position position;
     private Direction facingDirection;
     private float currentSpeed;
+    private Color color;
+    private VehicleState currentState;
 
     public Vehicle(float x ,float y, Color color) {
         position = new Position(x, y);
         facingDirection = Direction.EAST;
         this.color = color;
+        currentSpeed = 0;
+        setCurrentState(new VehicleStoppedState(this));
     }
     
     public float getCurrentSpeed(){
@@ -38,56 +40,15 @@ abstract public class Vehicle implements Movable{
     }
 
     public void turnLeft(){
-        switch (facingDirection) {
-            case NORTH:
-                facingDirection = Direction.WEST;
-                break;
-            case EAST:
-                facingDirection = Direction.NORTH;
-                break;
-            case SOUTH:
-                facingDirection = Direction.EAST;
-                break;
-            case WEST:
-                facingDirection = Direction.SOUTH;
-                break;
-        }
+        currentState.turnLeft();
     }
 
-
-    
     public void turnRight(){
-        switch (facingDirection) {
-            case NORTH:
-                facingDirection = Direction.EAST;
-                break;
-            case EAST:
-                facingDirection = Direction.SOUTH;
-                break;
-            case SOUTH:
-                facingDirection = Direction.WEST;
-                break;
-            case WEST:
-                facingDirection = Direction.NORTH;
-                break;
-        }
+        currentState.turnRight();
     }
     
     public void move(){
-        switch (facingDirection) {
-            case NORTH:
-                this.setPosition(position.getX(), position.getY() + currentSpeed);
-                break;
-            case WEST:
-                this.setPosition(position.getX() - currentSpeed, position.getY());
-                break;
-            case EAST:
-                this.setPosition(position.getX() + currentSpeed, position.getY());
-                break;
-            case SOUTH:
-                this.setPosition(position.getX(), position.getY() - currentSpeed);
-                break;
-        }
+        currentState.move();
     }
 
     public Position getPosition(){
@@ -106,15 +67,27 @@ abstract public class Vehicle implements Movable{
         return color;
     }
 
+    public VehicleState getCurrentState(){
+        return currentState;
+    }
+
     public void setColor(Color clr){
 	    color = clr;
     }
 
-    void setPosition(float x, float y) {
+    protected void setPosition(float x, float y) {
         position.setPosition(x, y);
     }
 
-    abstract protected void incrementSpeed(float amount);
+    void setCurrentState(VehicleState newState){
+        currentState = newState;
+    }
 
-    abstract protected void decrementSpeed(float amount);
+    void setFacingDirection(Direction direction){
+        facingDirection = direction;
+    }
+
+    abstract void incrementSpeed(float amount);
+
+    abstract void decrementSpeed(float amount);
 }

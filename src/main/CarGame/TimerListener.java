@@ -25,9 +25,9 @@ public class TimerListener implements ActionListener{
             int y = (int) Math.round(car.getPosition().getY());
             
             if(isDrivingIntoSurface(car)){
+                car.turnLeft();
+                car.turnLeft();
                 car.stopEngine();
-                car.turnLeft();
-                car.turnLeft();
                 car.startEngine();
             }
             

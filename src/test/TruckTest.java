@@ -10,9 +10,6 @@ import main.CarModel.Vehicles.TransportTruck;
 import main.CarModel.Vehicles.Volvo240;
 
 public class TruckTest {
-
-    
-    
     Scania myScania = new Scania(0,0);
     TransportTruck myTruck = new TransportTruck(4,0,0);
     
