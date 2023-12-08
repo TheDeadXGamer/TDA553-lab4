@@ -27,12 +27,12 @@ public class CarButtonListener {
     private JButton addCarButton = new JButton("Add Car");
     private JButton gasButton = new JButton("Gas");
     private JButton brakeButton = new JButton("Brake");
-    private JButton turboOnButton = new JButton("Saab Turbo on");
-    private JButton turboOffButton = new JButton("Saab Turbo off");
-    private JButton liftBedButton = new JButton("Scania Lift Bed");
-    private JButton lowerBedButton = new JButton("Lower Lift Bed");
-    private JButton startButton = new JButton("Start all cars");
-    private JButton stopButton = new JButton("Stop all cars");
+    private JButton turboOnButton = new JButton("Turbo on");
+    private JButton turboOffButton = new JButton("Turbo off");
+    private JButton liftBedButton = new JButton("Lift Bed");
+    private JButton lowerBedButton = new JButton("Lower Bed");
+    private JButton startButton = new JButton("Start Cars");
+    private JButton stopButton = new JButton("Stop Cars");
 
     private JLabel gasLabel = new JLabel("Amount of gas");
 
@@ -50,12 +50,12 @@ public class CarButtonListener {
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
-        controlPanel.add(startButton,6);
-        controlPanel.add(stopButton,7);
-        controlPanel.add(addCarButton,8);
+        controlPanel.add(startButton, 3);
+        controlPanel.add(addCarButton, 4);
+        controlPanel.add(brakeButton, 5);
+        controlPanel.add(turboOffButton,6);
+        controlPanel.add(lowerBedButton,7);
+        controlPanel.add(stopButton,8);
         controlPanel.add(removeCarButton,9);
         controlPanel.setPreferredSize(new Dimension((Settings.getWindowWidth()/2)-200, 200));
 
@@ -156,13 +156,13 @@ public class CarButtonListener {
                         carC.addCarToArr(CF.CreateRandomCar(x,y));
                         break;
                     case "Volvo240":
-                        carC.addCar(CF.CreateVolvo240(x,y));
+                        carC.addCarToArr(CF.CreateVolvo240(x,y));
                         break;
                     case "Saab95":
-                        carC.addCar(CF.CreateSaab95(x,y));
+                        carC.addCarToArr(CF.CreateSaab95(x,y));
                         break;
                     case "Scania":
-                        carC.addCar(CF.CreateScania(x,y));
+                        carC.addCarToArr(CF.CreateScania(x,y));
                         break;
                 }
             }

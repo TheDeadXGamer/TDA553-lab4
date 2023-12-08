@@ -89,10 +89,6 @@ public class CarController {
         }
     }
 
-    void addCar(Car c){
-        addCarToArr(c);
-    }
-
     void removeCar(){
         if(composite.getSize() > 0){
             composite.removeCar(composite.getSize()-1);

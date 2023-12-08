@@ -34,7 +34,7 @@ public class Car extends Vehicle{
     }
 
     public void startEngine(){
-        setCurrentState(new VehicleMovingState(this));
+        setCurrentState(new VehicleMovableState(this));
     }
 
     public void stopEngine(){
@@ -60,14 +60,14 @@ public class Car extends Vehicle{
 
     public void gas(float amount){
         VehicleState state = getCurrentState();
-        if(amount <= 1 && amount >= 0 && state instanceof VehicleMovingState) {
+        if(amount <= 1 && amount >= 0 && state instanceof VehicleMovableState) {
             incrementSpeed(amount);
         }
     }
     
     public void brake(float amount){
         VehicleState state = getCurrentState();
-        if(amount <= 1 && amount >= 0 && state instanceof VehicleMovingState) {
+        if(amount <= 1 && amount >= 0 && state instanceof VehicleMovableState) {
             decrementSpeed(amount);
         }
     }

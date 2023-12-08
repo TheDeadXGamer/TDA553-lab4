@@ -3,11 +3,11 @@ package main.CarModel.Vehicles;
 import main.Position;
 import main.CarModel.Vehicles.Vehicle.Direction;
 
-public class VehicleMovingState implements VehicleState{
+public class VehicleMovableState implements VehicleState{
 
     private Vehicle vehicle;
 
-    public VehicleMovingState(Vehicle vehicle){
+    public VehicleMovableState(Vehicle vehicle){
         this.vehicle = vehicle;
     }
 
